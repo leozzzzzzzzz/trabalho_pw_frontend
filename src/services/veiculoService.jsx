@@ -1,5 +1,5 @@
 export const getVeiculosAPI = async () => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculos`, {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculo`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export const getVeiculosAPI = async () => {
 }
 
 export const addVeiculoAPI = async (veiculo) => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculos`, {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculo`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const addVeiculoAPI = async (veiculo) => {
 }   
 
 export const updateVeiculoAPI = async (veiculo) => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculos/${veiculo.id}`, {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculo/${veiculo.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const updateVeiculoAPI = async (veiculo) => {
 }
 
 export const deleteVeiculoAPI = async id => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculos/${id}`, {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculo/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const deleteVeiculoAPI = async id => {
 }
 
 export const getVeiculoByIdAPI = async id => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculos/${id}`, {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculo/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
