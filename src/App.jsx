@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '@popperjs/core/dist/cjs/popper.min.js';
+import '@popperjs/core/dist/cjs/popper.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
 import Menu from "./components/Menu";

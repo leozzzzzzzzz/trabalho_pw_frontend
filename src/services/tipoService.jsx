@@ -1,5 +1,5 @@
-export const getTipo = async () => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipos`, {
+export const getTipoAPI = async () => {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipo`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -8,8 +8,8 @@ export const getTipo = async () => {
   const data = await response.json();
   return data;
 }
-export const addTipo = async (tipo) => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipos`, {
+export const addTipoAPI = async (tipo) => {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipo`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -20,8 +20,8 @@ export const addTipo = async (tipo) => {
   return data;
 }
 
-export const updateTipo = async (tipo) => {
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipos/${tipo.id}`, {
+export const updateTipoAPI = async (tipo) => {
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipo/${tipo.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -32,8 +32,8 @@ export const updateTipo = async (tipo) => {
   return data;
 }
 
-export const deleteTipo = async codigo => { 
-  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipos/${codigo}`, {
+export const deleteTipoAPI = async codigo => { 
+  const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipo/${codigo}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -43,8 +43,8 @@ export const deleteTipo = async codigo => {
   return data;
 }
 
-export const getTipoByCodigo = async codigo => {
-    const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipos/${codigo}`, {
+export const getTipoByCodigoAPI = async codigo => {
+    const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipo/${codigo}`, {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
