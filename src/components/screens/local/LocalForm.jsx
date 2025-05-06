@@ -17,17 +17,15 @@ function LocalForm() {
             <Alerta alerta={alerta} />
             <Col xs={12} md={12}>
                 <CampoEntrada value={objeto.codigo}
-                    id="txtCodido" name="codigo" label="Código"
+                    id="txtCodigo" name="codigo" label="Código"
                     tipo="number" onchange={handleChange}
-                    readonly={true}
-                    maxCaracteres={5} />
+                    readonly={true}/>
             </Col>
             <Col xs={12} md={12}>
                 <CampoEntrada value={objeto.nome}
                     id="txtNome" name="nome" label="Nome"
                     tipo="text" onchange={handleChange}
-                    requerido={true} readonly={false}
-                    maxCaracteres={40} />
+                    requerido={true} readonly={false} />
             </Col>
             <Col xs={12} md={12}>
                 <CampoEntradaTextArea value={objeto.localizacao}

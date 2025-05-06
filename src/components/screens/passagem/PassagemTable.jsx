@@ -41,8 +41,8 @@ function PassagemTable() {
                                         </Button>
                                     </td>
                                     <td>{objeto.id}</td>
-                                    <td>{objeto.veiculo}</td>
-                                    <td>{objeto.local}</td>
+                                    <td>{objeto.placa}</td>
+                                    <td>{objeto.localizacao}</td>
                                     <td>{new Date(objeto.data_hora).toLocaleString()}</td>
                                     <td>{objeto.valor}</td>
                                     <td>{objeto.pago ? 'Sim' : 'Não'}</td>

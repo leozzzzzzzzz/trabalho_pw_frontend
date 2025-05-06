@@ -48,10 +48,11 @@ function Tipo() {
         });
         setExibirForm(true);
     }
-    const editarObjeto = objeto => {
+    const editarObjeto = async codigo => {
         setEditar(true);
         setAlerta({ status: "", message: "" });
-        setObjeto(objeto);
+        const tipo = await getTipoByCodigoAPI(codigo)
+        setObjeto(tipo.data);
         setExibirForm(true);
     }
     const acaoCadastrar = async () => {

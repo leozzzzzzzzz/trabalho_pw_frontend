@@ -25,14 +25,14 @@ function VeiculoForm() {
                 />
             </Col>
             <Col xs={12} md={12}>
-                <CampoSelect
+                <CampoEntrada
                     value={objeto.tipo}
-                    id="selectTipo"
+                    id="txtTipo"
                     name="tipo"
                     label="Tipo"
                     onchange={handleChange}
-                    opcoes={[]}
                     requerido={true}
+                    msgvalido="OK" msginvalido="Informe o tipo"
                 />
             </Col>
             <Col xs={12} md={12}>
@@ -44,7 +44,7 @@ function VeiculoForm() {
                     tipo="text"
                     onchange={handleChange}
                     requerido={true}
-                    maxCaracteres={7}
+                    msgvalido="OK" msginvalido="Informe o veículo"
                 />
             </Col>
             <Col xs={12} md={12}>
@@ -56,7 +56,7 @@ function VeiculoForm() {
                     tipo="text"
                     onchange={handleChange}
                     requerido={true}
-                    maxCaracteres={20}
+                    msgvalido="OK" msginvalido="Informe a cor"
                 />
             </Col>
         </Dialogo>

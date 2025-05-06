@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import PassagemContext from "./PassagemContext"
 import PassagemTable from "./PassagemTable"
 import PassagemForm from "./PassagemForm"
-import { getPassagensAPI, addPassagemAPI, updatePassagemAPI, deletePassagemAPI, getPassagemByIDAPI } from "../../../services/passagemService"
+import { getPassagensAPI, addPassagemAPI, updatePassagemAPI, deletePassagemAPI, getPassagemByIdAPI } from "../../../services/passagemService"
 import Carregando from "../../comuns/Carregando"
 
 function Passagem() {
@@ -12,7 +12,7 @@ function Passagem() {
     const [carregando, setCarregando] = useState(true);
     const [listaPassagem, setListaPassagem] = useState([])
 
-    const recuperaLocais = async () => {
+    const recuperaPassagens = async () => {
         setCarregando(true);
         setListaObj(await getPassagensAPI());
         setCarregando(false);
@@ -21,11 +21,11 @@ function Passagem() {
         if(window.confirm("Deseja remover este objeto?")){
             let retornoAPI = await deletePassagemAPI(codigo)
             setAlerta({status : retornoAPI.status, message : retornoAPI.message})
-            recuperaLocais()
+            recuperaPassagens()
         }
     }
     useEffect(() => {
-        recuperaLocais()
+        recuperaPassagens()
     },[])
 
     const [editar, setEditar] = useState(false);
@@ -33,8 +33,8 @@ function Passagem() {
 
     const [objeto, setObjeto] = useState({
         id: "",
-        veiculo: "",
-        local: "",
+        placa: "",
+        localizacao: "",
         data_hora: "",
         valor: "",
         pago: false
@@ -45,18 +45,18 @@ function Passagem() {
         setAlerta({ status: "", message: "" });
         setObjeto({
             id: "",
-            veiculo: "",
-            local: "",
+            placa: "",
+            localizacao: "",
             data_hora: "",
             valor: "",
             pago: false
         });
         setExibirForm(true);
     }
-    const editarObjeto = objeto => {
+    const editarObjeto = async id => {
+        setObjeto(await getPassagemByIdAPI(id));
         setEditar(true);
         setAlerta({ status: "", message: "" });
-        setObjeto(objeto);
         setExibirForm(true);
     }
     const acaoCadastrar = async () => {
@@ -67,7 +67,7 @@ function Passagem() {
             retornoAPI = await addPassagemAPI(objeto);
         }
         setAlerta({status : retornoAPI.status, message : retornoAPI.message})
-        recuperaLocais()
+        recuperaPassagens()
         setExibirForm(false);
     }
     

@@ -50,10 +50,11 @@ function Veiculo() {
         });
         setExibirForm(true);
     }
-    const editarObjeto = objeto => {
+    const editarObjeto = async id => {
         setEditar(true);
         setAlerta({ status: "", message: "" });
-        setObjeto(objeto);
+        const veiculo = await getVeiculoByIdAPI(id);
+        setObjeto(veiculo.data);
         setExibirForm(true);
     }
     const acaoCadastrar = async () => {

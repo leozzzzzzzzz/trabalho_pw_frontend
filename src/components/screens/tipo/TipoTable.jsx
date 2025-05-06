@@ -8,7 +8,7 @@ function TipoTable() {
 
     return (
         <div style={{ padding: '20px' }}>
-            <h1>Locais</h1>
+            <h1>Tipos</h1>
             <Alert alerta={alerta} />
             <Button variant="primary" onClick={() => novoObjeto()}>
                 <i className="bi bi-file-earmark-plus"></i> Novo
@@ -22,7 +22,6 @@ function TipoTable() {
                             <th style={{ textAlign: 'center' }}>Ações</th>
                             <th>Código</th>
                             <th>Nome</th>
-                            <th>Tarifa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +38,6 @@ function TipoTable() {
                                     </td>
                                     <td>{objeto.codigo}</td>
                                     <td>{objeto.nome}</td>
-                                    <td>{objeto.tarifa}</td>
                                 </tr>
                             ))
                         }

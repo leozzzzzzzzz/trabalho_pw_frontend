@@ -11,46 +11,55 @@ function PassagemForm() {
 
     const { objeto, handleChange, acaoCadastrar, alerta, exibirForm, setExibirForm } = useContext(PassagemContext);
 
+    const dados = objeto.data || {};
+    console.log(dados)
     return (
         <Dialogo id="modalEdicao" titulo="Local"
         acaoCadastrar={acaoCadastrar} exibirForm={exibirForm} setExibirForm={setExibirForm}>
             <Alerta alerta={alerta} />
             <Col xs={12} md={12}>
-                <CampoEntrada value={objeto.id}
+                <CampoEntrada value={dados.id}
                     id="txtID" name="id" label="ID"
                     tipo="number" onchange={handleChange}
-                    readonly={true}
-                    maxCaracteres={5} />
+                    readonly={true}/>
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada value={objeto.tipo}
-                    id="txtTipo" name="tipo" label ="Tipo"
+                <CampoEntrada value={dados.veiculo}
+                    id="txtVeiculo" name="veiculo" label ="Veículo"
                     tipo="number" onchange={handleChange}
                     requerido={true} readonly={false}
-                    maxCaracteres={40} />
+                    msgvalido="OK" msginvalido="Informe o tipo" />
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada value={objeto.data_hora}
+                <CampoEntrada value={dados.local}
+                    id="txtLocal" name="local" label="Local"
+                    tipo="text" onchange={handleChange}
+                    requerido={true} readonly={false}
+                    msgvalido="OK" msginvalido="Informe o local"/>
+            </Col>
+            <Col xs={12} md={12}>
+                <CampoEntrada value={dados.data_hora ? dados.data_hora.slice(0, 16) : ''}
                     id="txtDataHora" name="data_hora" label="Data e Hora"
                     tipo="datetime-local" onchange={handleChange}
-                    requerido={true} readonly={false} />
+                    requerido={true} readonly={false} 
+                    msgvalido="OK" msginvalido="Informe a data"/>
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada value={objeto.valor}
+                <CampoEntrada value={dados.valor}
                     id="txtValor" name="valor" label="Valor"
                     tipo="number" onchange={handleChange}
                     requerido={true} readonly={false}
-                    maxCaracteres={10} />
+                    msgvalido="OK" msginvalido="Informe o valor"/>
             </Col>
             <Col xs={12} md={12}>
-                <CampoSelect value={objeto.pago}
+                <CampoSelect value={dados.pago}
                     id="selectPago" name="pago" label="Pago"
-                    opcoes={[
-                        { valor: true, texto: "Sim" },
-                        { valor: false, texto: "Não" }
-                    ]}
                     onchange={handleChange}
-                    requerido={true} />
+                    requerido={true}
+                    msgvalido="OK" msginvalido="Informe se está pago ou não">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                </CampoSelect>
             </Col>
         </Dialogo>
 

@@ -47,12 +47,18 @@ function Local() {
         });
         setExibirForm(true);
     }
-    const editarObjeto = objeto => {
+    const editarObjeto = async codigo => {
+        console.log("Iniciando edição do objeto com código:", codigo);
         setEditar(true);
         setAlerta({ status: "", message: "" });
-        setObjeto(objeto);
-        setExibirForm(true);
-    }
+        const local = await getLocalByCodigoAPI(codigo);
+        if (local) {
+            setObjeto(local.data);
+            setExibirForm(true);
+        } else {
+            setAlerta({ status: "error", message: "Erro ao carregar os dados do local." });
+        }
+    };
     const acaoCadastrar = async () => {
         let retornoAPI = null;
         if(editar){
