@@ -12,7 +12,8 @@ function LocalForm() {
     const { objeto, handleChange, acaoCadastrar, alerta, exibirForm, setExibirForm } = useContext(LocalContext);
 
     return (
-        <Dialogo id="modalEdicao" titulo="Local">
+        <Dialogo id="modalEdicao" titulo="Local"
+        acaoCadastrar={acaoCadastrar} exibirForm={exibirForm} setExibirForm={setExibirForm}>
             <Alerta alerta={alerta} />
             <Col xs={12} md={12}>
                 <CampoEntrada value={objeto.codigo}

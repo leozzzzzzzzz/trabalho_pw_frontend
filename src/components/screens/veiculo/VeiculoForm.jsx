@@ -10,7 +10,8 @@ function VeiculoForm() {
     const { objeto, handleChange, acaoCadastrar, alerta, exibirForm, setExibirForm } = useContext(VeiculoContext);
 
     return (
-        <Dialogo id="modalEdicao" titulo="Veículo" exibir={exibirForm} setExibir={setExibirForm} acaoSalvar={acaoCadastrar}>
+        <Dialogo id="modalEdicao" titulo="Veículo" exibirForm={exibirForm} setExibirForm={setExibirForm} acaoCadastrar={acaoCadastrar}>
+
             <Alerta alerta={alerta} />
             <Col xs={12} md={12}>
                 <CampoEntrada
