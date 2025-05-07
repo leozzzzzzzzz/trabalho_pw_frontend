@@ -10,25 +10,26 @@ function TipoTable() {
         <div style={{ padding: '20px' }}>
             <h1>Tipos</h1>
             <Alert alerta={alerta} />
-            <Button variant="primary" onClick={() => novoObjeto()}>
-                <i className="bi bi-file-earmark-plus"></i> Novo
-            </Button>
+            
             {listaObj.length === 0 && <h1>Nenhum registro encontrado</h1>}
             {
                 listaObj.length > 0 &&
                 <Table striped bordered hover responsive>
                     <thead>
                         <tr>
-                            <th style={{ textAlign: 'center' }}>Ações</th>
                             <th>Código</th>
                             <th>Nome</th>
                             <th>Tarifa</th>
+                            <th style={{ textAlign: 'center' }}>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             listaObj.map((objeto) => (
                                 <tr key={objeto.codigo}>
+                                    <td>{objeto.codigo}</td>
+                                    <td>{objeto.nome}</td>
+                                    <td>{objeto.tarifa}</td>
                                     <td align="center">
                                         <Button variant="info" onClick={() => editarObjeto(objeto.codigo)}>
                                             <i className="bi bi-pencil-square"></i> Editar
@@ -37,13 +38,14 @@ function TipoTable() {
                                             <i className="bi bi-trash-fill"></i> Excluir
                                         </Button>
                                     </td>
-                                    <td>{objeto.codigo}</td>
-                                    <td>{objeto.nome}</td>
-                                    <td>{objeto.tarifa}</td>
                                 </tr>
                             ))
                         }
-                    </tbody>
+                    </tbody>        
+                    <br></br>
+                    <Button variant="primary" size="lg" onClick={() => novoObjeto()}>
+                        <i className="bi bi-file-earmark-plus"></i> Novo
+                    </Button>
                 </Table>
             }
         </div>
