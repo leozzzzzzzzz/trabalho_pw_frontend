@@ -20,7 +20,6 @@ function Menu() {
                                 <NavLink className="dropdown-item" exact="true" to="veiculo">Veículos</NavLink>
                                 <NavLink className="dropdown-item" exact="true" to="passagem">Passagens</NavLink>
                             </NavDropdown>
-                            <NavLink className="nav-link active" aria-current="page" exact="true" to="/sobre">Sobre...</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

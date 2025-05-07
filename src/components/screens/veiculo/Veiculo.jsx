@@ -60,7 +60,7 @@ function Veiculo() {
     const acaoCadastrar = async () => {
         let retornoAPI = null;
         if(editar){
-            retornoAPI = await addVeiculoAPI(objeto);
+            retornoAPI = await updateVeiculoAPI(objeto);
         }else{
             retornoAPI = await addVeiculoAPI(objeto);
         }
