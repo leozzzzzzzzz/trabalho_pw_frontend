@@ -48,7 +48,6 @@ function Local() {
         setExibirForm(true);
     }
     const editarObjeto = async codigo => {
-        console.log("Iniciando edição do objeto com código:", codigo);
         setEditar(true);
         setAlerta({ status: "", message: "" });
         const local = await getLocalByCodigoAPI(codigo);
@@ -62,7 +61,9 @@ function Local() {
     const acaoCadastrar = async () => {
         let retornoAPI = null;
         if(editar){
-            retornoAPI = await addLocalAPI(objeto);
+            console.log(objeto)
+            retornoAPI = await updateLocalAPI(objeto);
+            console.log(retornoAPI)
         }else{
             retornoAPI = await addLocalAPI(objeto);
         }

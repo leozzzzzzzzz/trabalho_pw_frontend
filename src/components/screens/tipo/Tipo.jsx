@@ -58,7 +58,7 @@ function Tipo() {
     const acaoCadastrar = async () => {
         let retornoAPI = null;
         if(editar){
-            retornoAPI = await addTipoAPI(objeto);
+            retornoAPI = await updateTipoAPI(objeto);
         }else{
             retornoAPI = await addTipoAPI(objeto);
         }

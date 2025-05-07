@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import Alerta from '../../comuns/Alert';
 import PassagemContext from './PassagemContext';
 import Col from 'react-bootstrap/Col';
@@ -6,53 +6,60 @@ import CampoEntrada from "../../comuns/CampoEntrada";
 import CampoEntradaTextArea from '../../comuns/CampoEntradaTextArea';
 import CampoSelect from '../../comuns/CampoSelect';
 import Dialogo from '../../comuns/Dialogo';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function PassagemForm() {
+    const { objeto, handleChange, acaoCadastrar, alerta, exibirForm, setExibirForm, veiculos, locais } = useContext(PassagemContext);
 
-    const { objeto, handleChange, acaoCadastrar, alerta, exibirForm, setExibirForm } = useContext(PassagemContext);
-
-    const dados = objeto.data || {};
-    console.log(dados)
     return (
-        <Dialogo id="modalEdicao" titulo="Local"
+        <Dialogo id="modalEdicao" titulo="Passagem"
         acaoCadastrar={acaoCadastrar} exibirForm={exibirForm} setExibirForm={setExibirForm}>
             <Alerta alerta={alerta} />
             <Col xs={12} md={12}>
-                <CampoEntrada value={dados.id}
+                <CampoEntrada value={objeto.id}
                     id="txtID" name="id" label="ID"
                     tipo="number" onchange={handleChange}
                     readonly={true}/>
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada value={dados.veiculo}
-                    id="txtVeiculo" name="veiculo" label ="Veículo"
-                    tipo="number" onchange={handleChange}
-                    requerido={true} readonly={false}
-                    msgvalido="OK" msginvalido="Informe o tipo" />
+                <CampoSelect value={objeto.veiculo}
+                    id="selectVeiculo" name="veiculo" label="Veículo"
+                    onchange={handleChange}
+                    requerido={true}
+                    msgvalido="OK" msginvalido="Informe o veículo">
+                        {veiculos.map(veiculo => (
+                            <option key={veiculo.id} value={veiculo.id}>{veiculo.placa}</option>
+                        ))}
+                </CampoSelect>
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada value={dados.local}
-                    id="txtLocal" name="local" label="Local"
-                    tipo="text" onchange={handleChange}
-                    requerido={true} readonly={false}
-                    msgvalido="OK" msginvalido="Informe o local"/>
+                <CampoSelect value={objeto.local}
+                    id="selectLocal" name="local" label="Local"
+                    onchange={handleChange}
+                    requerido={true}
+                    msgvalido="OK" msginvalido="Informe o local">
+                        <option value="">Selecione</option>
+                        {locais.map(local => (
+                            <option key={local.codigo} value={local.codigo}>{local.localizacao}</option>
+                        ))}
+                </CampoSelect>
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada value={dados.data_hora ? dados.data_hora.slice(0, 16) : ''}
+                <CampoEntrada value={objeto.data_hora ? objeto.data_hora.slice(0, 16) : ''}
                     id="txtDataHora" name="data_hora" label="Data e Hora"
                     tipo="datetime-local" onchange={handleChange}
                     requerido={true} readonly={false} 
                     msgvalido="OK" msginvalido="Informe a data"/>
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada value={dados.valor}
+                <CampoEntrada value={objeto.valor}
                     id="txtValor" name="valor" label="Valor"
                     tipo="number" onchange={handleChange}
                     requerido={true} readonly={false}
                     msgvalido="OK" msginvalido="Informe o valor"/>
             </Col>
             <Col xs={12} md={12}>
-                <CampoSelect value={dados.pago}
+                <CampoSelect value={objeto.pago}
                     id="selectPago" name="pago" label="Pago"
                     onchange={handleChange}
                     requerido={true}
@@ -62,8 +69,7 @@ function PassagemForm() {
                 </CampoSelect>
             </Col>
         </Dialogo>
-
-    )
+    );
 }
 
 export default PassagemForm;

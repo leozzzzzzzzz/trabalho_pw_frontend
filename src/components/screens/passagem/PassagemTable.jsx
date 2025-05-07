@@ -4,7 +4,17 @@ import Alert from "../../comuns/Alert";
 import { Table, Button } from "react-bootstrap";
 
 function PassagemTable() {
-    const { alerta, listaObj, remover, novoObjeto, editarObjeto } = useContext(PassagemContext);
+    const { alerta, listaObj, remover, novoObjeto, editarObjeto, veiculos, locais } = useContext(PassagemContext);
+
+    const getPlaca = (veiculoId) => {
+        const veiculo = veiculos.find(v => v.id === veiculoId);
+        return veiculo ? veiculo.placa : "";
+    };
+
+    const getLocalizacao = (localId) => {
+        const local = locais.find(l => l.codigo === localId);
+        return local ? local.localizacao : "";
+    };
 
     return (
         <div style={{ padding: '20px' }}>
@@ -31,6 +41,7 @@ function PassagemTable() {
                     <tbody>
                         {
                             listaObj.map((objeto) => (
+                                console.log(objeto),
                                 <tr key={objeto.id}>
                                     <td align="center">
                                         <Button variant="info" onClick={() => editarObjeto(objeto.id)}>

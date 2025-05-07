@@ -22,7 +22,7 @@ export const addLocalAPI = async (local) => {
 }   
 
 export const updateLocalAPI = async (local) => {
-    const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/local/${local.id}`,{
+    const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/local/${local.codigo}`,{
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

@@ -28,6 +28,13 @@ function TipoForm() {
                     requerido={true} readonly={false}
                     msgvalido="OK" msginvalido="Informe o nome" />
             </Col>
+            <Col xs={12} md={12}>
+                <CampoEntrada value={objeto.tarifa}
+                    id="txtTarifa" name="tarifa" label="Tarifa"
+                    tipo="number" onchange={handleChange}
+                    requerido={true} readonly={false}
+                    msgvalido="OK" msginvalido="Informe a tarifa" />
+            </Col>
         </Dialogo>
 
     )

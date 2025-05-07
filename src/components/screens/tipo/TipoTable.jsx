@@ -22,6 +22,7 @@ function TipoTable() {
                             <th style={{ textAlign: 'center' }}>Ações</th>
                             <th>Código</th>
                             <th>Nome</th>
+                            <th>Tarifa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,7 @@ function TipoTable() {
                                     </td>
                                     <td>{objeto.codigo}</td>
                                     <td>{objeto.nome}</td>
+                                    <td>{objeto.tarifa}</td>
                                 </tr>
                             ))
                         }

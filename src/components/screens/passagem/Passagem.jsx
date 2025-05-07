@@ -3,6 +3,8 @@ import PassagemContext from "./PassagemContext"
 import PassagemTable from "./PassagemTable"
 import PassagemForm from "./PassagemForm"
 import { getPassagensAPI, addPassagemAPI, updatePassagemAPI, deletePassagemAPI, getPassagemByIdAPI } from "../../../services/passagemService"
+import { getVeiculosAPI } from '../../../services/veiculoService';
+import { getLocalAPI } from '../../../services/localService';
 import Carregando from "../../comuns/Carregando"
 
 function Passagem() {
@@ -40,6 +42,17 @@ function Passagem() {
         pago: false
       })
 
+    const [veiculos, setVeiculos] = useState([]);
+    const [locais, setLocais] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setVeiculos(await getVeiculosAPI());
+            setLocais(await getLocalAPI());
+        };
+        fetchData();
+    }, []);
+
     const novoObjeto = () => {
         setEditar(false);
         setAlerta({ status: "", message: "" });
@@ -54,7 +67,31 @@ function Passagem() {
         setExibirForm(true);
     }
     const editarObjeto = async id => {
-        setObjeto(await getPassagemByIdAPI(id));
+        console.log("Iniciando edição para o ID:", id);
+
+        if (veiculos.length === 0 || locais.length === 0) {
+            alert("Os dados de veículos e locais ainda estão sendo carregados. Tente novamente em alguns segundos.");
+            return;
+        }
+
+        const res = await getPassagemByIdAPI(id);
+        const passagem = res.data;
+
+        //mapeamentos
+        const veiculoCorrespondente = veiculos.find(v => v.placa === passagem.placa);
+        const veiculoId = veiculoCorrespondente ? veiculoCorrespondente.id : "";
+
+        const localCorrespondente = locais.find(l => l.localizacao === passagem.localizacao);
+        const localId = localCorrespondente ? localCorrespondente.codigo : "";
+
+        setObjeto({
+            id: passagem.id,
+            veiculo: veiculoId,
+            local: localId,
+            data_hora: passagem.data_hora,
+            valor: passagem.valor,
+            pago: passagem.pago
+        });
         setEditar(true);
         setAlerta({ status: "", message: "" });
         setExibirForm(true);
@@ -62,7 +99,7 @@ function Passagem() {
     const acaoCadastrar = async () => {
         let retornoAPI = null;
         if(editar){
-            retornoAPI = await addPassagemAPI(objeto);
+            retornoAPI = await updatePassagemAPI(objeto);
         }else{
             retornoAPI = await addPassagemAPI(objeto);
         }
@@ -81,7 +118,8 @@ function Passagem() {
         <PassagemContext.Provider value = {
             {
                  alerta, listaObj, remover, objeto, editarObjeto,
-                 acaoCadastrar, handleChange, novoObjeto, exibirForm, setExibirForm
+                 acaoCadastrar, handleChange, novoObjeto, exibirForm, setExibirForm,
+                 veiculos, locais
             }
         }> 
             <Carregando carregando={carregando}>
