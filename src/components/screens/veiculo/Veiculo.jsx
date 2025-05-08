@@ -3,6 +3,7 @@ import VeiculoContext from "./VeiculoContext"
 import VeiculoTable from "./VeiculoTable"
 import VeiculoForm from "./VeiculoForm"
 import { getVeiculosAPI, addVeiculoAPI, updateVeiculoAPI, deleteVeiculoAPI, getVeiculoByIdAPI } from "../../../services/veiculoService"
+import { getTipoAPI } from '../../../services/tipoService';
 import Carregando from "../../comuns/Carregando"
 
 function Veiculo() {
@@ -39,34 +40,69 @@ function Veiculo() {
         cor: ""
       })
 
+    const [tipos, setTipos] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const tiposData = await getTipoAPI();
+            console.log("Tipos carregados:", tiposData);
+            setTipos(tiposData);
+        };
+        fetchData();
+    }, []);
+    
     const novoObjeto = () => {
         setEditar(false);
         setAlerta({ status: "", message: "" });
         setObjeto({
             id: 0,
-            tipo: "",
+            tipo: 0,
             placa: "",
             cor: ""
         });
         setExibirForm(true);
     }
     const editarObjeto = async id => {
+        const res = await getVeiculoByIdAPI(id);
+        const veiculo = res.data;
+
+        const tipoCorrespondente = tipos.find(tipo => tipo.id === veiculo.tipo);
+        const tipoId = tipoCorrespondente ? tipoCorrespondente.id : 0;
+
+        setObjeto({
+            id: veiculo.id,
+            tipo: parseInt(tipoId),
+            placa: veiculo.placa,
+            cor: veiculo.cor
+        }); 
+
         setEditar(true);
         setAlerta({ status: "", message: "" });
-        const veiculo = await getVeiculoByIdAPI(id);
-        setObjeto(veiculo.data);
         setExibirForm(true);
     }
     const acaoCadastrar = async () => {
         let retornoAPI = null;
-        if(editar){
-            retornoAPI = await updateVeiculoAPI(objeto);
-        }else{
-            retornoAPI = await addVeiculoAPI(objeto);
+        try {
+            console.log("Objeto enviado:", objeto);
+            if (editar) {
+                retornoAPI = await updateVeiculoAPI(objeto);
+            } else {
+                retornoAPI = await addVeiculoAPI(objeto);
+            }
+            console.log("Resposta da API:", retornoAPI);
+            setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
+            if (retornoAPI.status === 200) {
+                recuperaVeiculos();
+                setExibirForm(false);
+            }
+        } catch (error) {
+            console.error("Erro na API:", error);
+            if (error.response && error.response.data) {
+                setAlerta({ status: "error", message: error.response.data.message });
+            } else {
+                setAlerta({ status: "error", message: "Erro ao processar a solicitação." });
+            }
         }
-        setAlerta({status : retornoAPI.status, message : retornoAPI.message})
-        recuperaVeiculos()
-        setExibirForm(false);
     }
     
     const handleChange = (e) => {
@@ -78,7 +114,7 @@ function Veiculo() {
     return (
         <VeiculoContext.Provider value = {
             {
-                 alerta, listaObj, remover, objeto, editarObjeto,
+                 alerta, listaObj, remover, objeto, editarObjeto, tipos, setTipos,
                  acaoCadastrar, handleChange, novoObjeto, exibirForm, setExibirForm
             }
         }> 

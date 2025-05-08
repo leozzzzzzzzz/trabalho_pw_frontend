@@ -4,7 +4,7 @@ import Alert from "../../comuns/Alert";
 import { Table, Button } from "react-bootstrap";
 
 function VeiculoTable() {
-    const { alerta, listaObj, remover, novoObjeto, editarObjeto } = useContext(VeiculoContext);
+    const { alerta, listaObj, remover, novoObjeto, editarObjeto, tipos } = useContext(VeiculoContext);
 
     return (
         <div style={{ padding: '20px' }}>
@@ -29,7 +29,7 @@ function VeiculoTable() {
                             listaObj.map((objeto) => (
                                 <tr key={objeto.id}>
                                     <td>{objeto.id}</td>
-                                    <td>{objeto.tipo}</td>
+                                    <td>{tipos.find(tipo => tipo.codigo === objeto.tipo).nome}</td>
                                     <td>{objeto.placa}</td>
                                     <td>{objeto.cor}</td>
                                     <td align="center">

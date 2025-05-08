@@ -67,7 +67,6 @@ function Passagem() {
         setExibirForm(true);
     }
     const editarObjeto = async id => {
-        console.log("Iniciando edição para o ID:", id);
 
         if (veiculos.length === 0 || locais.length === 0) {
             alert("Os dados de veículos e locais ainda estão sendo carregados. Tente novamente em alguns segundos.");

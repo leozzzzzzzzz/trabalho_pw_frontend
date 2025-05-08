@@ -38,7 +38,6 @@ function PassagemForm() {
                     onchange={handleChange}
                     requerido={true}
                     msgvalido="OK" msginvalido="Informe o local">
-                        <option value="">Selecione</option>
                         {locais.map(local => (
                             <option key={local.codigo} value={local.codigo}>{local.localizacao}</option>
                         ))}

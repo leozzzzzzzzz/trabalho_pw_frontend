@@ -5,9 +5,10 @@ import Col from 'react-bootstrap/Col';
 import CampoEntrada from '../../comuns/CampoEntrada';
 import CampoSelect from '../../comuns/CampoSelect';
 import Dialogo from '../../comuns/Dialogo';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function VeiculoForm() {
-    const { objeto, handleChange, acaoCadastrar, alerta, exibirForm, setExibirForm } = useContext(VeiculoContext);
+    const { objeto, tipos, handleChange, acaoCadastrar, alerta, exibirForm, setExibirForm } = useContext(VeiculoContext);
 
     return (
         <Dialogo id="modalEdicao" titulo="Veículo" exibirForm={exibirForm} setExibirForm={setExibirForm} acaoCadastrar={acaoCadastrar}>
@@ -25,15 +26,20 @@ function VeiculoForm() {
                 />
             </Col>
             <Col xs={12} md={12}>
-                <CampoEntrada
+                <CampoSelect
                     value={objeto.tipo}
-                    id="txtTipo"
+                    id="selectTipo"
                     name="tipo"
                     label="Tipo"
+                    tipo="number"
                     onchange={handleChange}
                     requerido={true}
-                    msgvalido="OK" msginvalido="Informe o tipo"
-                />
+                    msgvalido="OK" msginvalido="Informe o tipo">
+                    console.log(tipos)
+                    {tipos.map (tipo => (
+                        <option key={tipo.codigo} value={tipo.codigo}>{tipo.nome}</option>
+                    ))}
+                </CampoSelect>
             </Col>
             <Col xs={12} md={12}>
                 <CampoEntrada
@@ -44,7 +50,7 @@ function VeiculoForm() {
                     tipo="text"
                     onchange={handleChange}
                     requerido={true}
-                    msgvalido="OK" msginvalido="Informe o veículo"
+                    msgvalido="OK" msginvalido="Informe uma placa válida"
                 />
             </Col>
             <Col xs={12} md={12}>
