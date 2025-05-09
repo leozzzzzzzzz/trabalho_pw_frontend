@@ -20,7 +20,8 @@ function TipoTable() {
                             <th>#</th>
                             <th>Nome</th>
                             <th>Tarifa</th>
-                            <th style={{ textAlign: 'center' }}>Ações</th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}>Ações</th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +35,8 @@ function TipoTable() {
                                         <Button variant="info" onClick={() => editarObjeto(objeto.codigo)}>
                                             <i className="bi bi-pencil-square"></i> Editar
                                         </Button>{' '}
+                                    </td>
+                                    <td align="center">
                                         <Button variant="danger" onClick={() => remover(objeto.codigo)}>
                                             <i className="bi bi-trash-fill"></i> Excluir
                                         </Button>

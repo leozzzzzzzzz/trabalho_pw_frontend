@@ -21,7 +21,8 @@ function VeiculoTable() {
                             <th>Tipo</th>
                             <th>placa</th>
                             <th>cor</th>
-                            <th style={{ textAlign: 'center' }}>Ações</th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,8 @@ function VeiculoTable() {
                                             <Button variant="info" onClick={() => editarObjeto(objeto.id)}>
                                                 <i className="bi bi-pencil-square"></i> Editar
                                             </Button>{' '}
+                                        </td>
+                                        <td align="center">
                                             <Button variant="danger" onClick={() => remover(objeto.id)}>
                                                 <i className="bi bi-trash-fill"></i> Excluir
                                             </Button>

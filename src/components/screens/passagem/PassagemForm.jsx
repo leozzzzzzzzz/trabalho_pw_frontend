@@ -3,7 +3,6 @@ import Alerta from '../../comuns/Alert';
 import PassagemContext from './PassagemContext';
 import Col from 'react-bootstrap/Col';
 import CampoEntrada from "../../comuns/CampoEntrada";
-import CampoEntradaTextArea from '../../comuns/CampoEntradaTextArea';
 import CampoSelect from '../../comuns/CampoSelect';
 import Dialogo from '../../comuns/Dialogo';
 import 'bootstrap-icons/font/bootstrap-icons.css';

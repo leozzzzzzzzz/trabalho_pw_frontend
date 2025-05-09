@@ -11,7 +11,6 @@ function Veiculo() {
     const [alerta, setAlerta] = useState({"status" : "", message : ""})
     const [listaObj, setListaObj] = useState([])
     const [carregando, setCarregando] = useState(true);
-    const [listaTipo, setListaTipo] = useState([])
 
     const recuperaVeiculos = async () => {
         setCarregando(true);

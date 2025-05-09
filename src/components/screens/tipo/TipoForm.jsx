@@ -3,7 +3,6 @@ import Alerta from '../../comuns/Alert';
 import TipoContext from './TipoContext';
 import Col from 'react-bootstrap/Col';
 import CampoEntrada from "../../comuns/CampoEntrada";
-import CampoEntradaTextArea from '../../comuns/CampoEntradaTextArea';
 
 import Dialogo from '../../comuns/Dialogo';
 

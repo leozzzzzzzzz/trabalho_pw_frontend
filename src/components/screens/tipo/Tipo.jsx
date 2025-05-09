@@ -10,7 +10,6 @@ function Tipo() {
     const [alerta, setAlerta] = useState({"status" : "", message : ""})
     const [listaObj, setListaObj] = useState([])
     const [carregando, setCarregando] = useState(true);
-    const [listaTipo, setListaTipo] = useState([])
 
     const recuperaTipos = async () => {
         setCarregando(true);

@@ -12,7 +12,6 @@ function Passagem() {
     const [alerta, setAlerta] = useState({"status" : "", message : ""})
     const [listaObj, setListaObj] = useState([])
     const [carregando, setCarregando] = useState(true);
-    const [listaPassagem, setListaPassagem] = useState([])
 
     const recuperaPassagens = async () => {
         setCarregando(true);

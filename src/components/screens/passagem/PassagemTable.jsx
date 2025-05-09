@@ -4,17 +4,7 @@ import Alert from "../../comuns/Alert";
 import { Table, Button } from "react-bootstrap";
 
 function PassagemTable() {
-    const { alerta, listaObj, remover, novoObjeto, editarObjeto, veiculos, locais } = useContext(PassagemContext);
-
-    const getPlaca = (veiculoId) => {
-        const veiculo = veiculos.find(v => v.id === veiculoId);
-        return veiculo ? veiculo.placa : "";
-    };
-
-    const getLocalizacao = (localId) => {
-        const local = locais.find(l => l.codigo === localId);
-        return local ? local.localizacao : "";
-    };
+    const { alerta, listaObj, remover, novoObjeto, editarObjeto } = useContext(PassagemContext);
 
     return (
         <div style={{ padding: '20px' }}>
@@ -32,8 +22,8 @@ function PassagemTable() {
                             <th>Data/Hora</th>
                             <th>Valor</th>
                             <th>Pago</th>
-                            <th style={{ textAlign: 'center' }}>Ações</th>
-
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +42,8 @@ function PassagemTable() {
                                         <Button variant="info" onClick={() => editarObjeto(objeto.id)}>
                                             <i className="bi bi-pencil-square"></i> Editar
                                         </Button>{' '}
+                                    </td>
+                                    <td align="center">
                                         <Button variant="danger" onClick={() => remover(objeto.id)}>
                                             <i className="bi bi-trash-fill"></i> Excluir
                                         </Button>

@@ -20,7 +20,8 @@ function LocalTable() {
                             <th>#</th>
                             <th>Nome</th>
                             <th>Localização</th>
-                            <th style={{ textAlign: 'center' }}>Ações</th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
 
                         </tr>
                     </thead>
