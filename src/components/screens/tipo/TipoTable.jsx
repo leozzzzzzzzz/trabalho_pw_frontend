@@ -20,8 +20,8 @@ function TipoTable() {
                             <th>#</th>
                             <th>Nome</th>
                             <th>Tarifa</th>
-                            <th style={{ textAlign: 'center', width: '8rem' }}>Ações</th>
-                            <th style={{ textAlign: 'center', width: '8rem' }}>Ações</th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
+                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
                         </tr>
                     </thead>
                     <tbody>

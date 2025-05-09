@@ -36,6 +36,8 @@ function LocalTable() {
                                         <Button variant="info" onClick={() => editarObjeto(objeto.codigo)}>
                                             <i className="bi bi-pencil-square"></i> Editar
                                         </Button>{' '}
+                                    </td>
+                                    <td align="center">
                                         <Button variant="danger" onClick={() => remover(objeto.codigo)}>
                                             <i className="bi bi-trash-fill"></i> Excluir
                                         </Button>
