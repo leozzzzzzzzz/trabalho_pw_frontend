@@ -17,7 +17,7 @@ function LocalTable() {
                 <Table striped bordered hover responsive>
                     <thead>
                         <tr>
-                            <th>Código</th>
+                            <th>#</th>
                             <th>Nome</th>
                             <th>Localização</th>
                             <th style={{ textAlign: 'center' }}>Ações</th>
@@ -43,12 +43,11 @@ function LocalTable() {
                             ))
                         }
                     </tbody>
-                    <br></br>
-                    <Button variant="primary" size="lg" onClick={() => novoObjeto()}>
-                        <i className="bi bi-file-earmark-plus"></i> Novo
-                    </Button>
                 </Table>
             }
+                <Button variant="primary" size="lg" onClick={() => novoObjeto()}>
+                    <i className="bi bi-file-earmark-plus"></i> Novo
+                </Button>
         </div>
     );
 }

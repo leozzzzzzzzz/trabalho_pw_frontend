@@ -45,7 +45,7 @@ function Veiculo() {
     useEffect(() => {
         const fetchData = async () => {
             const tiposData = await getTipoAPI();
-            console.log("Tipos carregados:", tiposData);
+            // console.log("Tipos carregados:", tiposData);
             setTipos(tiposData);
         };
         fetchData();
@@ -80,28 +80,20 @@ function Veiculo() {
         setAlerta({ status: "", message: "" });
         setExibirForm(true);
     }
-    const acaoCadastrar = async () => {
-        let retornoAPI = null;
+    const acaoCadastrar = async (e) => {
+        if (e) e.preventDefault(); // mostrar o erro quando a paca for invalida
         try {
-            console.log("Objeto enviado:", objeto);
+            let retornoAPI = null;
             if (editar) {
                 retornoAPI = await updateVeiculoAPI(objeto);
             } else {
                 retornoAPI = await addVeiculoAPI(objeto);
             }
-            console.log("Resposta da API:", retornoAPI);
             setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
-            if (retornoAPI.status === 200) {
-                recuperaVeiculos();
-                setExibirForm(false);
-            }
+            recuperaVeiculos();
+            setExibirForm(false);
         } catch (error) {
-            console.error("Erro na API:", error);
-            if (error.response && error.response.data) {
-                setAlerta({ status: "error", message: error.response.data.message });
-            } else {
-                setAlerta({ status: "error", message: "Erro ao processar a solicitação." });
-            }
+            setAlerta({ status: "error", message: "Erro: " + error.message });
         }
     }
     

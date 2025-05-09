@@ -35,7 +35,7 @@ function VeiculoForm() {
                     onchange={handleChange}
                     requerido={true}
                     msgvalido="OK" msginvalido="Informe o tipo">
-                    console.log(tipos)
+                    {/* console.log(tipos) */}
                     {tipos.map (tipo => (
                         <option key={tipo.codigo} value={tipo.codigo}>{tipo.nome}</option>
                     ))}

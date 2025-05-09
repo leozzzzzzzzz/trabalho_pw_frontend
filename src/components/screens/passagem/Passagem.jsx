@@ -95,7 +95,10 @@ function Passagem() {
         setAlerta({ status: "", message: "" });
         setExibirForm(true);
     }
-    const acaoCadastrar = async () => {
+    const acaoCadastrar = async (e) => {
+        if (e) {
+            e.preventDefault();
+        }
         let retornoAPI = null;
         if(editar){
             retornoAPI = await updatePassagemAPI(objeto);

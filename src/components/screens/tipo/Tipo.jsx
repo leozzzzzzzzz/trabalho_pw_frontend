@@ -55,7 +55,10 @@ function Tipo() {
         setObjeto(tipo.data);
         setExibirForm(true);
     }
-    const acaoCadastrar = async () => {
+    const acaoCadastrar = async (e) => {
+        if (e) {
+            e.preventDefault();
+        }
         let retornoAPI = null;
         if(editar){
             retornoAPI = await updateTipoAPI(objeto);

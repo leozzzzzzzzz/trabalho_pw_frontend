@@ -58,12 +58,15 @@ function Local() {
             setAlerta({ status: "error", message: "Erro ao carregar os dados do local." });
         }
     };
-    const acaoCadastrar = async () => {
+    const acaoCadastrar = async (e) => {
+        if (e) {
+            e.preventDefault();
+        }
         let retornoAPI = null;
         if(editar){
-            console.log(objeto)
+            // console.log(objeto)
             retornoAPI = await updateLocalAPI(objeto);
-            console.log(retornoAPI)
+            // console.log(retornoAPI)
         }else{
             retornoAPI = await addLocalAPI(objeto);
         }

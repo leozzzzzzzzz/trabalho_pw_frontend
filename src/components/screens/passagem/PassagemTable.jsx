@@ -39,7 +39,7 @@ function PassagemTable() {
                     <tbody>
                         {
                             listaObj.map((objeto) => (
-                                console.log(objeto),
+                                // console.log(objeto),
                                 <tr key={objeto.id}>
                                     
                                     <td>{objeto.id}</td>
@@ -60,13 +60,12 @@ function PassagemTable() {
                             ))
                         }
                     </tbody>
-                    <br></br>
-                    <Button variant="primary" size="lg" onClick={() => novoObjeto()}>
-                        <i className="bi bi-file-earmark-plus"></i> Cadastrar Passagem
-                    </Button>
                 </Table>
                 
             }
+            <Button variant="primary" size="lg" onClick={() => novoObjeto()}>
+                <i className="bi bi-file-earmark-plus"></i> Cadastrar Passagem
+            </Button>
         </div>
     );
 }

@@ -17,7 +17,7 @@ function VeiculoTable() {
                 <Table striped bordered hover responsive>
                     <thead>
                         <tr>
-                            <th>Código</th>
+                            <th>#</th>
                             <th>Tipo</th>
                             <th>placa</th>
                             <th>cor</th>
@@ -26,30 +26,32 @@ function VeiculoTable() {
                     </thead>
                     <tbody>
                         {
-                            listaObj.map((objeto) => (
-                                <tr key={objeto.id}>
-                                    <td>{objeto.id}</td>
-                                    <td>{tipos.find(tipo => tipo.codigo === objeto.tipo).nome}</td>
-                                    <td>{objeto.placa}</td>
-                                    <td>{objeto.cor}</td>
-                                    <td align="center">
-                                        <Button variant="info" onClick={() => editarObjeto(objeto.id)}>
-                                            <i className="bi bi-pencil-square"></i> Editar
-                                        </Button>{' '}
-                                        <Button variant="danger" onClick={() => remover(objeto.id)}>
-                                            <i className="bi bi-trash-fill"></i> Excluir
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))
+                            listaObj.map((objeto) => {
+                                const tipo = tipos.find(tipo => tipo.codigo === objeto.tipo);
+                                return (
+                                    <tr key={objeto.id}>
+                                        <td>{objeto.id}</td>
+                                        <td>{tipo ? tipo.nome : ''}</td>
+                                        <td>{objeto.placa}</td>
+                                        <td>{objeto.cor}</td>
+                                        <td align="center">
+                                            <Button variant="info" onClick={() => editarObjeto(objeto.id)}>
+                                                <i className="bi bi-pencil-square"></i> Editar
+                                            </Button>{' '}
+                                            <Button variant="danger" onClick={() => remover(objeto.id)}>
+                                                <i className="bi bi-trash-fill"></i> Excluir
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                );
+                            })
                         }
                     </tbody>
-                    <br></br>
-                    <Button variant="primary" size="lg" onClick={() => novoObjeto()}>
-                        <i className="bi bi-file-earmark-plus"></i> Novo
-                    </Button>
                 </Table>
             }
+            <Button variant="primary" size="lg" onClick={() => novoObjeto()}>
+                <i className="bi bi-file-earmark-plus"></i> Novo
+            </Button>
         </div>
     );
 }
