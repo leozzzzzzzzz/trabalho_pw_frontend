@@ -65,8 +65,8 @@ function Veiculo() {
         const res = await getVeiculoByIdAPI(id);
         const veiculo = res.data;
 
-        const tipoCorrespondente = tipos.find(tipo => tipo.id === veiculo.tipo);
-        const tipoId = tipoCorrespondente ? tipoCorrespondente.id : 0;
+        const tipoCorrespondente = tipos.find(tipo => tipo.codigo === veiculo.tipo);
+        const tipoId = tipoCorrespondente ? tipoCorrespondente.codigo : 0;
 
         setObjeto({
             id: veiculo.id,
