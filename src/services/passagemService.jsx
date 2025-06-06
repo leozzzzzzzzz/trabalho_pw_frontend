@@ -1,8 +1,10 @@
+import { getToken } from "../seguranca/Autenticacao"
 export const getPassagensAPI = async () => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/passagem`,{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         }
     })
     const data = await response.json()
@@ -14,6 +16,7 @@ export const addPassagemAPI = async (passagem) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         },
         body: JSON.stringify(passagem)
     })
@@ -26,6 +29,7 @@ export const updatePassagemAPI = async (passagem) => {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         },
         body: JSON.stringify(passagem)
     })
@@ -38,6 +42,7 @@ export const deletePassagemAPI = async (id) => {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         }
     })
     const data = await response.json()
@@ -49,6 +54,7 @@ export const getPassagemByIdAPI = async (id) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         }
     })
     const data = await response.json()

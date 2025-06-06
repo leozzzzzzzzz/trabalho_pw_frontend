@@ -5,24 +5,35 @@ import VeiculoForm from "./VeiculoForm"
 import { getVeiculosAPI, addVeiculoAPI, updateVeiculoAPI, deleteVeiculoAPI, getVeiculoByIdAPI } from "../../../services/veiculoService"
 import { getTipoAPI } from '../../../services/tipoService';
 import Carregando from "../../comuns/Carregando"
+import WithAuth from "../../../seguranca/WithAuth";
+import { replace } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Veiculo() {
-
+    let navigate = useNavigate();
     const [alerta, setAlerta] = useState({"status" : "", message : ""})
     const [listaObj, setListaObj] = useState([])
     const [carregando, setCarregando] = useState(true);
 
     const recuperaVeiculos = async () => {
-        setCarregando(true);
-        setListaObj(await getVeiculosAPI());
-        setCarregando(false);
+        try {
+            setCarregando(true);
+            setListaObj(await getVeiculosAPI());
+            setCarregando(false);
+        } catch (err){
+            navigate("/login", { replace: true })
+        }
     }
 
     const remover = async codigo => {
         if(window.confirm("Deseja remover este objeto?")){
-            let retornoAPI = await deleteVeiculoAPI(codigo)
-            setAlerta({status : retornoAPI.status, message : retornoAPI.message})
-            recuperaVeiculos()
+            try {
+                let retornoAPI = await deleteVeiculoAPI(codigo)
+                setAlerta({status : retornoAPI.status, message : retornoAPI.message})
+                recuperaVeiculos()
+            } catch (err) {
+                navigate("/login", { replace: true })
+            }
         }
     }
     useEffect(() => {
@@ -62,37 +73,45 @@ function Veiculo() {
         setExibirForm(true);
     }
     const editarObjeto = async id => {
-        const res = await getVeiculoByIdAPI(id);
-        const veiculo = res.data;
+        try {
+            const res = await getVeiculoByIdAPI(id);
+            const veiculo = res.data;
 
-        const tipoCorrespondente = tipos.find(tipo => tipo.codigo === veiculo.tipo);
-        const tipoId = tipoCorrespondente ? tipoCorrespondente.codigo : 0;
+            const tipoCorrespondente = tipos.find(tipo => tipo.codigo === veiculo.tipo);
+            const tipoId = tipoCorrespondente ? tipoCorrespondente.codigo : 0;
 
-        setObjeto({
-            id: veiculo.id,
-            tipo: parseInt(tipoId),
-            placa: veiculo.placa,
-            cor: veiculo.cor
-        }); 
+            setObjeto({
+                id: veiculo.id,
+                tipo: parseInt(tipoId),
+                placa: veiculo.placa,
+                cor: veiculo.cor
+            }); 
 
-        setEditar(true);
-        setAlerta({ status: "", message: "" });
-        setExibirForm(true);
+            setEditar(true);
+            setAlerta({ status: "", message: "" });
+            setExibirForm(true);
+        } catch (err) {
+            navigate("/login", { replace: true })
+        }
     }
     const acaoCadastrar = async (e) => {
-        if (e) e.preventDefault(); // mostrar o erro quando a paca for invalida
         try {
-            let retornoAPI = null;
-            if (editar) {
-                retornoAPI = await updateVeiculoAPI(objeto);
-            } else {
-                retornoAPI = await addVeiculoAPI(objeto);
+            if (e) e.preventDefault(); // mostrar o erro quando a paca for invalida
+            try {
+                let retornoAPI = null;
+                if (editar) {
+                    retornoAPI = await updateVeiculoAPI(objeto);
+                } else {
+                    retornoAPI = await addVeiculoAPI(objeto);
+                }
+                setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
+                recuperaVeiculos();
+                setExibirForm(false);
+            } catch (error) {
+                setAlerta({ status: "error", message: "Erro: " + error.message });
             }
-            setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
-            recuperaVeiculos();
-            setExibirForm(false);
-        } catch (error) {
-            setAlerta({ status: "error", message: "Erro: " + error.message });
+        } catch (err) {
+            navigate("/login", { replace: true })
         }
     }
     
@@ -119,4 +138,4 @@ function Veiculo() {
 
 }
 
-export default Veiculo
+export default WithAuth(Veiculo)

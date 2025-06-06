@@ -1,8 +1,10 @@
+import { getToken } from "../seguranca/Autenticacao";
 export const getLocalAPI = async () => {
     const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/local`,{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         }
     })
     const data = await response.json()
@@ -14,6 +16,7 @@ export const addLocalAPI = async (local) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         },
         body: JSON.stringify(local)
     })
@@ -26,6 +29,7 @@ export const updateLocalAPI = async (local) => {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         },
         body: JSON.stringify(local)
     })
@@ -38,6 +42,7 @@ export const deleteLocalAPI = async id => {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         }
     })
     const data = await response.json()
@@ -49,6 +54,7 @@ export const getLocalByCodigoAPI = async codigo => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            "authorization": getToken()
         }
     })
     const data = await response.json()

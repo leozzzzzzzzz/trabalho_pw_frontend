@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core/dist/cjs/popper.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-import Menu from "./components/Menu";
 import Home from "./components/screens/home";
 import About from "./components/screens/about";
 
@@ -12,12 +11,16 @@ import Passagem from "./components/screens/passagem/Passagem";
 import Tipo from "./components/screens/tipo/Tipo";
 import Veiculo from "./components/screens/veiculo/Veiculo";
 
+import Login from './components/screens/login/Login';
+import MenuPublico from "./components/MenuPublico";
+import MenuPrivado from "./components/MenuPrivado";
+
 import "./App.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Menu />,
+    element: <MenuPublico />,
     children: [
       {
         index: true,
@@ -27,6 +30,24 @@ const router = createBrowserRouter([
         path: "sobre",
         element: <About />,
       },
+      {
+        path : "login",
+        element :  <Login/>
+      }
+    ]
+  },
+  {
+    path: "/privado",
+    element: <MenuPrivado />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path : "About",
+        element : <About/>
+      },  
       {
         path: "local",
         element: <Local />,

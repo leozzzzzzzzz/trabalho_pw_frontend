@@ -1,8 +1,10 @@
+import { getToken } from "../seguranca/Autenticacao";
 export const getTipoAPI = async () => {
   const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/tipo`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
   });
   const data = await response.json();
@@ -13,6 +15,7 @@ export const addTipoAPI = async (tipo) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
     body: JSON.stringify(tipo),
   });
@@ -25,6 +28,7 @@ export const updateTipoAPI = async (tipo) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
     body: JSON.stringify(tipo),
   });
@@ -37,6 +41,7 @@ export const deleteTipoAPI = async codigo => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
   });
   const data = await response.json();
@@ -48,6 +53,7 @@ export const getTipoByCodigoAPI = async codigo => {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
+        "authorization": getToken()
         },
     });
     const data = await response.json();

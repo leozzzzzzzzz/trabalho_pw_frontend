@@ -4,24 +4,34 @@ import TipoTable from "./TipoTable"
 import TipoForm from "./TipoForm"
 import { getTipoAPI, addTipoAPI, updateTipoAPI, deleteTipoAPI, getTipoByCodigoAPI } from "../../../services/tipoService"
 import Carregando from "../../comuns/Carregando"
+import WithAuth from "../../../seguranca/WithAuth";
+import { useNavigate } from "react-router-dom";
 
 function Tipo() {
-
+    let navigate = useNavigate();
     const [alerta, setAlerta] = useState({"status" : "", message : ""})
     const [listaObj, setListaObj] = useState([])
     const [carregando, setCarregando] = useState(true);
 
     const recuperaTipos = async () => {
-        setCarregando(true);
-        setListaObj(await getTipoAPI());
-        setCarregando(false);
+        try {
+            setCarregando(true);
+            setListaObj(await getTipoAPI());
+            setCarregando(false);
+        } catch (err) {
+            navigate("/login", { replace: true })
+        }
     }
 
     const remover = async codigo => {
         if(window.confirm("Deseja remover este objeto?")){
-            let retornoAPI = await deleteTipoAPI(codigo)
-            setAlerta({status : retornoAPI.status, message : retornoAPI.message})
-            recuperaTipos()
+            try {
+                let retornoAPI = await deleteTipoAPI(codigo)
+                setAlerta({status : retornoAPI.status, message : retornoAPI.message})
+                recuperaTipos()
+            } catch (err) {
+                navigate("/login", { replace: true })
+            }
         }
     }
     useEffect(() => {
@@ -48,25 +58,33 @@ function Tipo() {
         setExibirForm(true);
     }
     const editarObjeto = async codigo => {
-        setEditar(true);
-        setAlerta({ status: "", message: "" });
-        const tipo = await getTipoByCodigoAPI(codigo)
-        setObjeto(tipo.data);
-        setExibirForm(true);
+        try {
+            setEditar(true);
+            setAlerta({ status: "", message: "" });
+            const tipo = await getTipoByCodigoAPI(codigo)
+            setObjeto(tipo.data);
+            setExibirForm(true);
+        } catch (err) {
+            navigate("/login", { replace: true })
+        }
     }
     const acaoCadastrar = async (e) => {
-        if (e) {
-            e.preventDefault();
+        try {
+            if (e) {
+                e.preventDefault();
+            }
+            let retornoAPI = null;
+            if(editar){
+                retornoAPI = await updateTipoAPI(objeto);
+            }else{
+                retornoAPI = await addTipoAPI(objeto);
+            }
+            setAlerta({status : retornoAPI.status, message : retornoAPI.message})
+            recuperaTipos()
+            setExibirForm(false);
+        } catch (err) {
+            navigate("/login", { replace: true })
         }
-        let retornoAPI = null;
-        if(editar){
-            retornoAPI = await updateTipoAPI(objeto);
-        }else{
-            retornoAPI = await addTipoAPI(objeto);
-        }
-        setAlerta({status : retornoAPI.status, message : retornoAPI.message})
-        recuperaTipos()
-        setExibirForm(false);
     }
     
     const handleChange = (e) => {
@@ -92,4 +110,4 @@ function Tipo() {
 
 }
 
-export default Tipo
+export default WithAuth(Tipo)

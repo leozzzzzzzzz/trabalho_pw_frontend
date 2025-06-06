@@ -1,8 +1,11 @@
+import { getToken } from "../seguranca/Autenticacao";
+
 export const getVeiculosAPI = async () => {
   const response = await fetch(`${process.env.REACT_APP_ENDERECO_API}/veiculo`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
   });
   const data = await response.json();
@@ -14,6 +17,7 @@ export const addVeiculoAPI = async (veiculo) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
     body: JSON.stringify(veiculo),
   });
@@ -26,6 +30,7 @@ export const updateVeiculoAPI = async (veiculo) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
     body: JSON.stringify(veiculo),
   });
@@ -38,6 +43,7 @@ export const deleteVeiculoAPI = async id => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
   });
   const data = await response.json();
@@ -49,6 +55,7 @@ export const getVeiculoByIdAPI = async id => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      "authorization": getToken()
     },
   });
   const data = await response.json();
