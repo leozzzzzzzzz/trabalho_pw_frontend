@@ -52,9 +52,9 @@ function MenuPrivado() {
                                 </NavDropdown>
                             }
                         </Nav>
-                        <ToggleTema />
                     </Navbar.Collapse>
                     <Navbar.Collapse className="justify-content-end">                        
+                        <ToggleTema />
                         <NavDropdown title={usuario ? "Usuário: " + usuario.nome : "Usuário"} id="basic-nav-dropdown">
                             {usuario ?
                                 <NavLink className="dropdown-item" exact="true"
