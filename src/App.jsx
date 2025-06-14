@@ -16,6 +16,7 @@ import MenuPublico from "./components/MenuPublico";
 import MenuPrivado from "./components/MenuPrivado";
 
 import "./App.css";
+import SignUp from "./components/screens/login/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path : "login",
         element :  <Login/>
+      },
+      {
+        path: "signup",
+        element: <SignUp />, 
       }
     ]
   },
