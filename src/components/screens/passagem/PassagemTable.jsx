@@ -2,9 +2,12 @@ import { useContext } from "react";
 import PassagemContext from "./PassagemContext"; // Crie um contexto específico para passagens
 import Alert from "../../comuns/Alert";
 import { Table, Button } from "react-bootstrap";
+import { getUsuario } from '../../../seguranca/Autenticacao';
 
 function PassagemTable() {
     const { alerta, listaObj, remover, novoObjeto, editarObjeto } = useContext(PassagemContext);
+    const usuario = getUsuario();
+    const isAdmin = usuario && usuario.tipo === 'a';
 
     return (
         <div style={{ padding: '20px' }}>
@@ -23,7 +26,7 @@ function PassagemTable() {
                             <th>Valor</th>
                             <th>Pago</th>
                             <th style={{ textAlign: 'center', width: '8rem' }}></th>
-                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
+                            {isAdmin && <th style={{ textAlign: 'center', width: '8rem' }}></th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -43,11 +46,13 @@ function PassagemTable() {
                                             <i className="bi bi-pencil-square"></i> Editar
                                         </Button>{' '}
                                     </td>
-                                    <td align="center">
-                                        <Button variant="danger" onClick={() => remover(objeto.id)}>
-                                            <i className="bi bi-trash-fill"></i> Excluir
-                                        </Button>
-                                    </td>
+                                    {isAdmin && (
+                                        <td align="center">
+                                            <Button variant="danger" onClick={() => remover(objeto.id)}>
+                                                <i className="bi bi-trash-fill"></i> Excluir
+                                            </Button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))
                         }

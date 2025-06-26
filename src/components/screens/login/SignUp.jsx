@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { gravaAutenticacao, getToken } from '../../../seguranca/Autenticacao';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Carregando from '../../comuns/Carregando';
 import Alerta from '../../comuns/Alert';
 import CampoEntrada from '../../comuns/CampoEntrada';
-import CampoSelect from '../../comuns/CampoSelect';
+import { addUsuarioAPI } from '../../../services/usuarioService';
 
 function SignUp(){
     const [dados, setDados] = useState({
@@ -18,6 +17,13 @@ function SignUp(){
 
     const [alerta, setAlerta] = useState({ status: "", message: "" });
     const [carregando, setCarregando] = useState(false);
+    const navigate = useNavigate();
+
+    // Função genérica para atualizar os campos do formulário
+    const handleChange = e => {
+        const { name, value } = e.target;
+        setDados(prev => ({ ...prev, [name]: value }));
+    }
 
     const acaoSignup = async e => {
             e.preventDefault();
@@ -31,12 +37,15 @@ function SignUp(){
                     senha: dados.senha
                 };
                 setCarregando(true);
-                await fetch(`${process.env.REACT_APP_ENDERECO_API}/signup`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body),
-                }).then(response => response.json())
-                
+                const response = await addUsuarioAPI(body);
+
+                console.log(response);
+
+                if (!response.message) {
+                    navigate("/login");
+                } else {
+                    setAlerta({ status: "error", message: response.message || "Erro ao cadastrar." });
+                }
             }
             catch (err) {
                 console.error(err.message);
@@ -44,8 +53,6 @@ function SignUp(){
             }
             finally {
                 setCarregando(false);
-                const navigate = Navigate(); 
-                navigate("/login");
             }       
     }
 
@@ -56,38 +63,43 @@ function SignUp(){
                     <Carregando carregando={carregando}>
                         <Alerta alerta={alerta} />
                         <form onSubmit={acaoSignup}>
-                            <h1 className="h3 mb-3 fw-normal">Login de usuário</h1>
+                            <h1 className="h3 mb-3 fw-normal">Cadastro de usuário</h1>
                             <CampoEntrada value={dados.email}
                                 id="txtEmail" name="email" label="E-mail"
                                 tipo="email" 
+                                onchange={handleChange}
                                 msgvalido="Email OK" msginvalido="Informe o email"
                                 requerido={true} readonly={false}
                                 maxCaracteres={40} />
                             <CampoEntrada value={dados.cpf}
                                 id="txtCpf" name="cpf" label="CPF"
                                 tipo="text" 
+                                onchange={handleChange}
                                 msgvalido="CPF OK" msginvalido="Informe o CPF"
                                 requerido={true} readonly={false}
                                 maxCaracteres={40} />
-                                <CampoEntrada value={dados.telefone}
-                                    id="txtTelefone" name="telefone" label="Telefone"
-                                    tipo="text" 
-                                    msgvalido="Telefone OK" msginvalido="Informe o telefone"
-                                    requerido={true} readonly={false}
-                                    maxCaracteres={20} />
-                                <CampoEntrada value={dados.nome}
-                                    id="txtNome" name="nome" label="Nome"
-                                    tipo="text" 
-                                    msgvalido="Nome OK" msginvalido="Informe o nome"
-                                    requerido={true} readonly={false}
-                                    maxCaracteres={40} />
-                                <CampoEntrada value={dados.senha}
-                                    id="txtSenha" name="senha" label="Senha"
-                                    tipo="password"
-                                    msgvalido="Senha OK" msginvalido="Informe a senha"
-                                    requerido={true} readonly={false}
-                                    maxCaracteres={40} />
-                                <button className="w-100 btn btn-lg btn-primary" type="submit">Efetuar login</button>
+                            <CampoEntrada value={dados.telefone}
+                                id="txtTelefone" name="telefone" label="Telefone"
+                                tipo="text" 
+                                onchange={handleChange}
+                                msgvalido="Telefone OK" msginvalido="Informe o telefone"
+                                requerido={true} readonly={false}
+                                maxCaracteres={20} />
+                            <CampoEntrada value={dados.nome}
+                                id="txtNome" name="nome" label="Nome"
+                                tipo="text" 
+                                onchange={handleChange}
+                                msgvalido="Nome OK" msginvalido="Informe o nome"
+                                requerido={true} readonly={false}
+                                maxCaracteres={40} />
+                            <CampoEntrada value={dados.senha}
+                                id="txtSenha" name="senha" label="Senha"
+                                tipo="password"
+                                onchange={handleChange}
+                                msgvalido="Senha OK" msginvalido="Informe a senha"
+                                requerido={true} readonly={false}
+                                maxCaracteres={40} />
+                            <button className="w-100 btn btn-lg btn-primary" type="submit">Criar conta</button>
                         </form>
                     </Carregando>
                 </div>

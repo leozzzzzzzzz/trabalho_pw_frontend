@@ -2,9 +2,12 @@ import { useContext } from "react";
 import VeiculoContext from "./VeiculoContext";
 import Alert from "../../comuns/Alert";
 import { Table, Button } from "react-bootstrap";
+import { getUsuario } from '../../../seguranca/Autenticacao';
 
 function VeiculoTable() {
     const { alerta, listaObj, remover, novoObjeto, editarObjeto, tipos } = useContext(VeiculoContext);
+    const usuario = getUsuario();
+    const isAdmin = usuario && usuario.tipo === 'a';
 
     return (
         <div style={{ padding: '20px' }}>
@@ -22,7 +25,7 @@ function VeiculoTable() {
                             <th>placa</th>
                             <th>cor</th>
                             <th style={{ textAlign: 'center', width: '8rem' }}></th>
-                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
+                            {isAdmin && <th style={{ textAlign: 'center', width: '8rem' }}></th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -40,11 +43,13 @@ function VeiculoTable() {
                                                 <i className="bi bi-pencil-square"></i> Editar
                                             </Button>{' '}
                                         </td>
-                                        <td align="center">
-                                            <Button variant="danger" onClick={() => remover(objeto.id)}>
-                                                <i className="bi bi-trash-fill"></i> Excluir
-                                            </Button>
-                                        </td>
+                                        {isAdmin && (
+                                            <td align="center">
+                                                <Button variant="danger" onClick={() => remover(objeto.id)}>
+                                                    <i className="bi bi-trash-fill"></i> Excluir
+                                                </Button>
+                                            </td>
+                                        )}
                                     </tr>
                                 );
                             })

@@ -2,9 +2,12 @@ import { useContext } from "react";
 import LocalContext from "./LocalContext";
 import Alert from "../../comuns/Alert";
 import { Table, Button } from "react-bootstrap";
+import { getUsuario } from '../../../seguranca/Autenticacao';
 
 function LocalTable() {
     const { alerta, listaObj, remover, novoObjeto, editarObjeto } = useContext(LocalContext);
+    const usuario = getUsuario();
+    const isAdmin = usuario && usuario.tipo === 'a';
 
     return (
         <div style={{ padding: '20px' }}>
@@ -21,8 +24,7 @@ function LocalTable() {
                             <th>Nome</th>
                             <th>Localização</th>
                             <th style={{ textAlign: 'center', width: '8rem' }}></th>
-                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
-
+                            {isAdmin && <th style={{ textAlign: 'center', width: '8rem' }}></th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -37,11 +39,13 @@ function LocalTable() {
                                             <i className="bi bi-pencil-square"></i> Editar
                                         </Button>{' '}
                                     </td>
-                                    <td align="center">
-                                        <Button variant="danger" onClick={() => remover(objeto.codigo)}>
-                                            <i className="bi bi-trash-fill"></i> Excluir
-                                        </Button>
-                                    </td>
+                                    {isAdmin && (
+                                        <td align="center">
+                                            <Button variant="danger" onClick={() => remover(objeto.codigo)}>
+                                                <i className="bi bi-trash-fill"></i> Excluir
+                                            </Button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))
                         }

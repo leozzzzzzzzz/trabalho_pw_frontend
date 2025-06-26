@@ -57,8 +57,13 @@ function MenuPrivado() {
                         <ToggleTema />
                         <NavDropdown title={usuario ? "Usuário: " + usuario.nome : "Usuário"} id="basic-nav-dropdown">
                             {usuario ?
-                                <NavLink className="dropdown-item" exact="true"
-                                    to="/" onClick={() => logout()}>Logout</NavLink>
+                                <>
+                                    <NavLink className="dropdown-item" exact="true"
+                                        to="/privado/perfil">Perfil</NavLink>
+                                
+                                    <NavLink className="dropdown-item" exact="true"
+                                        to="/" onClick={() => logout()}>Logout</NavLink>
+                                </>
                                 :
                                 <NavLink className="dropdown-item" exact="true"
                                     to="/login">login</NavLink>

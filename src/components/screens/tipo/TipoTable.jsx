@@ -2,9 +2,12 @@ import { useContext } from "react";
 import TipoContext from "./TipoContext";
 import Alert from "../../comuns/Alert";
 import { Table, Button } from "react-bootstrap";
+import { getUsuario } from '../../../seguranca/Autenticacao';
 
 function TipoTable() {
     const { alerta, listaObj, remover, novoObjeto, editarObjeto } = useContext(TipoContext);
+    const usuario = getUsuario();
+    const isAdmin = usuario && usuario.tipo === 'a';
 
     return (
         <div style={{ padding: '20px' }}>
@@ -21,7 +24,7 @@ function TipoTable() {
                             <th>Nome</th>
                             <th>Tarifa</th>
                             <th style={{ textAlign: 'center', width: '8rem' }}></th>
-                            <th style={{ textAlign: 'center', width: '8rem' }}></th>
+                            {isAdmin && <th style={{ textAlign: 'center', width: '8rem' }}></th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -36,11 +39,13 @@ function TipoTable() {
                                             <i className="bi bi-pencil-square"></i> Editar
                                         </Button>{' '}
                                     </td>
-                                    <td align="center">
-                                        <Button variant="danger" onClick={() => remover(objeto.codigo)}>
-                                            <i className="bi bi-trash-fill"></i> Excluir
-                                        </Button>
-                                    </td>
+                                    {isAdmin && (
+                                        <td align="center">
+                                            <Button variant="danger" onClick={() => remover(objeto.codigo)}>
+                                                <i className="bi bi-trash-fill"></i> Excluir
+                                            </Button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))
                         }

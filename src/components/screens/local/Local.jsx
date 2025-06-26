@@ -4,13 +4,12 @@ import LocalTable from "./LocalTable"
 import LocalForm from "./LocalForm"
 import { getLocalAPI, addLocalAPI, updateLocalAPI, deleteLocalAPI, getLocalByCodigoAPI } from "../../../services/localService"
 import Carregando from "../../comuns/Carregando"
-
+import withAuth from "../../../seguranca/WithAuth"
 function Local() {
 
     const [alerta, setAlerta] = useState({"status" : "", message : ""})
     const [listaObj, setListaObj] = useState([])
     const [carregando, setCarregando] = useState(true);
-    const [listaLocal, setListaLocal] = useState([])
 
     const recuperaLocais = async () => {
         setCarregando(true);
@@ -98,4 +97,4 @@ function Local() {
 
 }
 
-export default Local
+export default withAuth(Local)

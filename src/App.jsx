@@ -18,6 +18,7 @@ import MenuPrivado from "./components/MenuPrivado";
 import "./App.css";
 import SignUp from "./components/screens/login/SignUp";
 
+import Perfil from "./components/screens/login/Perfil";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "veiculo",
         element: <Veiculo />,
+      },
+      {
+        path: "perfil",
+        element: <Perfil />,
       }
     ]
   }

@@ -82,6 +82,7 @@ function Login() {
                                 maxCaracteres={40} />
                             <button className="w-100 btn btn-lg btn-primary" type="submit">Efetuar login</button>
                         </form>
+                        <a href="/signup" className="mt-3 d-block">Cadastre-se</a>
                     </Carregando>
                 </div>
             </div>
