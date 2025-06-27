@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { getUsuario } from "../../../seguranca/Autenticacao";
+import { getUsuario, getToken, logout } from "../../../seguranca/Autenticacao";
 import { updateUsuarioAPI } from "../../../services/usuarioService";
+import { gravaAutenticacao } from "../../../seguranca/Autenticacao";
 import CampoEntrada from "../../comuns/CampoEntrada";
 import Alerta from "../../comuns/Alert";
 import Carregando from "../../comuns/Carregando";
@@ -11,7 +12,8 @@ function Perfil() {
         nome: "",
         email: "",
         cpf: "",
-        telefone: ""
+        telefone: "",
+        senha: ""
     });
     const [editando, setEditando] = useState(false);
     const [carregando, setCarregando] = useState(true);
@@ -56,7 +58,35 @@ function Perfil() {
         e.preventDefault();
         setCarregando(true);
         try{
-            await updateUsuarioAPI(dados);
+            const upd = await updateUsuarioAPI(dados);
+            setDados(upd)
+            
+            try {
+                const body = {
+                    email: upd.email,
+                    senha: dados.senha
+                };
+                
+                
+                await fetch(`${process.env.REACT_APP_ENDERECO_API}/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body),
+                }).then(response => response.json())
+                    .then(json => {
+                        if (json.auth === false) {
+                            setAlerta({ status: "error", message: json.message })
+                        }
+                        if (json.auth === true) {
+                            gravaAutenticacao(json);
+                        }
+                    });
+            } catch (err) {
+                console.error(err.message);
+                setAlerta({ status: "error", message: err.message })
+            } finally {
+                setCarregando(false);
+            }
         } catch (err) {
             setAlerta({ status: "error", message: err.message || "Erro ao atualizar perfil." });
             setCarregando(false);
@@ -64,9 +94,11 @@ function Perfil() {
         }
         setAlerta({ status: "success", message: "Perfil atualizado com sucesso!" });
         
-
+        
+        
         setEditando(false);
         setCarregando(false);
+
     };
 
     return (
@@ -119,7 +151,7 @@ function Perfil() {
                             tipo="text"
                             onchange={handleChange}
                             requerido={true}
-                            readonly={false}
+                            readonly={true}
                             maxCaracteres={14}
                             msgvalido="CPF OK"
                             msginvalido="Informe o CPF"
@@ -137,6 +169,20 @@ function Perfil() {
                             msgvalido="Telefone OK"
                             msginvalido="Informe o telefone"
                         />
+                        <CampoEntrada
+                            value={dados.senha}
+                            id="senha"
+                            name="senha"
+                            label="Senha"
+                            tipo="password"
+                            onchange={handleChange}
+                            requerido={true}
+                            readonly={false}
+                            maxCaracteres={20}
+                            msgvalido="Senha OK"
+                            msginvalido="Informe a Senha"
+                        />
+                        
                         <button className="btn btn-success me-2" type="submit">Salvar</button>
                         <button className="btn btn-secondary" type="button" onClick={handleCancelar}>Cancelar</button>
                     </form>
